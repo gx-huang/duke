@@ -54,6 +54,7 @@ public class DukeParser {
                 if (commandBroken.length == 1) {
                     throw new DukeException("THE DESCRIPTION OF TODO CANNOT BE EMPTY");
                 }
+                assert commandBroken[1] != null;
                 Task tempTask = tasks.addTask(new ToDos(commandBroken[1], false));
                 return DukeUI.showCreationMsg(tempTask);
 
@@ -61,6 +62,7 @@ public class DukeParser {
 
                 String context = commandBroken[1];
                 String[] contextBroken = context.split(" /at ", 2);
+                assert contextBroken[1] != null;
                 Task tempTask = tasks.addTask(new Events(contextBroken[0], false, contextBroken[1]));
                 return DukeUI.showCreationMsg(tempTask);
 
@@ -86,13 +88,13 @@ public class DukeParser {
 
             } else if (action.equalsIgnoreCase("showarchive")) {
                 return tasks.showArchived();
+
             } else {
                 return "UNABLE TO COMPREHEND";
             }
 
         } catch (DukeException exception) {
-            System.out.println(exception.getMessage());
+            return exception.getMessage();
         }
-        return "";
     }
 }
